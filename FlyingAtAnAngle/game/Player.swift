@@ -28,10 +28,6 @@ class Player : GameNode {
         sprite = SKSpriteNode(texture: SKTexture(imageNamed: "player"), color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), size: CGSize(width: 64, height: 64))
         sprite.zRotation = CGFloat(Float.pi / 2)
         
-        //if let particles = SKEmitterNode(fileNamed: "PlayerParticles.sks") {
-            //sprite.addChild(particles)
-        //}
-        
         trail = SimpleParticles(game)
         
         super.init(game)
@@ -71,18 +67,18 @@ class Player : GameNode {
         
         //game.score?.text = "\(velocity.y), \(acceleration.y)"
         
-        if(highest < position.y) { highest = position.y }
-        if position.y < lowest - sprite.size.height {
+        if highest < position.y { highest = position.y }
+        if position.y < lowest - sprite.size.height - 200 {
             game.gameOver()
         }
     }
     
-    func potentialDistanceFromAcceleration(acceleration : Float) -> Float {
-        return 0.418056 * pow(acceleration, 3) - 0.41369 * pow(acceleration ,2) + 1.09683 * acceleration - 1.08
-    }
-    
-    func potentialDistanceFromVelocity(velocity : Float) -> Float {
-        return -1.98148 * pow(velocity / 5, 3) + 63.6984 * pow(velocity / 5,2) + 177.394 * (velocity / 5) - 51.6667
+    override func reset() {
+        super.reset()
+        
+        trail.reset()
+        highest = CGFloat(0)
+        velocity.y = 15
     }
     
     private func checkCollisions() {

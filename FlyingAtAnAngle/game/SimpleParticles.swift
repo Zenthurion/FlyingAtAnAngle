@@ -41,6 +41,13 @@ class SimpleParticles {
         timeSinceSpawn += deltaTime
     }
     
+    func reset() {
+        for particle in particles {
+            particle.isHidden = true
+        }
+        timeSinceSpawn = 0
+    }
+    
     private func getAvailableParticle() -> GameParticle
     {
         for particle in particles {
@@ -60,7 +67,6 @@ class SimpleParticles {
         particle.velocity.y = game.player!.velocity.y * CGFloat(0.5)
         particle.acceleration.y = game.player!.acceleration.y - 4
         particle.setScale(CGFloat.random(in: CGFloat(0.7) ..< CGFloat(1.2)))
-        
     }
     
     private func createParticle() -> GameParticle

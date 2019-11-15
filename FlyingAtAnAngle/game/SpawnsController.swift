@@ -42,6 +42,16 @@ class SpawnsController {
         }
     }
     
+    func reset() {
+        for coin in coins {
+            coin.isHidden = true
+        }
+        
+        spawnDistance = CGFloat(600)
+        lastSpawnedHeight = CGFloat(0)
+        spawnCoin()
+    }
+    
     func spawnCoin() {
         let spawnPosition = CGPoint(x: Double.random(in: Double(self.scene.frame.minX) ..< Double(self.scene.frame.maxX)), y: Double(scene.player!.position.y + scene.frame.height))
         var newCoin : CoinSprite?
