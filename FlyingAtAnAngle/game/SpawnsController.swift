@@ -13,7 +13,7 @@ class SpawnsController {
     private var scene : GameScene
     
     var coins = [CoinSprite]()
-    var spawnDistance = CGFloat(300)
+    var spawnDistance = CGFloat(600)
     var lastSpawnedHeight = CGFloat(0)
     
     init(scene : GameScene) {
@@ -26,7 +26,7 @@ class SpawnsController {
         if scene.player != nil {
             if scene.player!.position.y > lastSpawnedHeight + spawnDistance {
                 lastSpawnedHeight += spawnDistance
-                spawnDistance += 1
+                spawnDistance += 10
                 spawnCoin()
             }
         }
@@ -36,6 +36,8 @@ class SpawnsController {
             
             if(coin.position.y < CGFloat(scene.player!.lowest)) {
                 coin.isHidden = true
+            } else {
+                coin.update(deltaTime)
             }
         }
     }
