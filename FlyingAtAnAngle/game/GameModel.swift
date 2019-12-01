@@ -10,6 +10,7 @@ import Foundation
 import CoreMotion
 
 class GameModel {
+    private let serverURL = URL(string: "http://142.93.44.236:3000")!
 
     var score = 0
     var highscore = 0
@@ -19,6 +20,8 @@ class GameModel {
     var speedScale : Float = 1
     
     init() {
+
+        UserDefaults.standard.set(1, forKey: "highscore")
         highscore = UserDefaults.standard.integer(forKey: "highscore")
     }
     
@@ -26,6 +29,19 @@ class GameModel {
         if score > highscore {
             highscore = score
             UserDefaults.standard.set(highscore, forKey: "highscore")
+            pushScoreToServer(score: score)
         }
+    }
+    
+    private func pushScoreToServer(score : Int) {
+        let id = UserDefaults.standard.string(forKey: "id")
+        if id == nil { return }
+        let url = serverURL.appendingPathComponent("/sendScore/\(score)/user/" + id!)
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+            print(String(data: data, encoding: .utf8)!)
+        }
+
+        task.resume()
     }
 }

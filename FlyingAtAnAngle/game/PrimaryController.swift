@@ -15,8 +15,7 @@ class PrimaryController : UIViewController /*, GKGameCenterControllerDelegate */
     //var gcEnabled = Bool()
     //var gcDefaultLeaderBoard = String()
          
-    var score = 0
-         
+    
     //let LEADERBOARD_ID = "dk.sdu.mmmi.mamja18.flyingatanangle"
     
 //    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
@@ -33,6 +32,7 @@ class PrimaryController : UIViewController /*, GKGameCenterControllerDelegate */
         print("Loaded Primary Controller")
         id = UserDefaults.standard.string(forKey: "id")
         if id == nil { getIdentifier() }
+        
     }
     
     
@@ -48,21 +48,6 @@ class PrimaryController : UIViewController /*, GKGameCenterControllerDelegate */
         task.resume()
     }
 
-    // http://142.93.44.236:3000/sendScore/30/user/78ce6175-611f-4aca-80d2-5a6f818946c1
-    private func pushScoreToServer() {
-        let url = serverURL.appendingPathComponent("/sendScore/")
-        print(url)
-        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
-            guard let data = data else { return }
-            print(String(data: data, encoding: .utf8)!)
-        }
-
-        task.resume()
-    }
-
-    private func getHighscoresFromServer() {
-
-    }
     
 //    private func authenticatePlayer() {
 //        let player = GKLocalPlayer()
