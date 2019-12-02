@@ -13,20 +13,18 @@ class GameModel {
     private let serverURL = URL(string: "http://142.93.44.236:3000")!
 
     var score = 0
-    var highscore = 0
+    var highscore : Int {
+        return UserDefaults.standard.integer(forKey: "highscore")
+    }
     var velocity : Float = 0.0
     var acceleration : Float = 0
     var gravity : Float = -10.0
     var speedScale : Float = 1
     
-    init() {
-        highscore = UserDefaults.standard.integer(forKey: "highscore")
-    }
-    
     func gameOver() {
         if score > highscore {
-            highscore = score
-            UserDefaults.standard.set(highscore, forKey: "highscore")
+            UserDefaults.standard.set(score, forKey: "highscore")
+            
             pushScoreToServer(score: score)
         }
     }

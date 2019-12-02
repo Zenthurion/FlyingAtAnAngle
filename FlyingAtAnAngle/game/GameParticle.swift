@@ -25,7 +25,6 @@ class GameParticle : GameNode {
         self.size = size
         super.init(game)
         self.addChild(sprite)
-        //self.useGravity = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,11 +34,5 @@ class GameParticle : GameNode {
     override func update(_ deltaTime: Float) {
         zRotation += CGFloat(deltaTime) * spinRate
         super.update(deltaTime)
-        
-        if velocity.y > 0 {
-            //print("WTF?! \(acceleration), \(velocity)")
-        }
     }
-    
-    
 }

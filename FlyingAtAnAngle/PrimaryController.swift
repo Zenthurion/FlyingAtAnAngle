@@ -19,7 +19,6 @@ class PrimaryController : UIViewController {
         print("Loaded Primary Controller")
         id = UserDefaults.standard.string(forKey: "id")
         if id == nil { getIdentifier() }
-        
     }
     
     private func getIdentifier() {
