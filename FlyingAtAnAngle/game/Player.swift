@@ -65,8 +65,6 @@ class Player : GameNode {
         
         trail.update(deltaTime)
         
-        //game.score?.text = "\(velocity.y), \(acceleration.y)"
-        
         if highest < position.y { highest = position.y }
         if position.y < lowest - sprite.size.height - 200 {
             game.gameOver()
@@ -95,6 +93,7 @@ class Player : GameNode {
         game.model.score += 1
         game.score?.text = "\(game.model.score)"
         coin.isHidden = true
+        game.playCoinSound()
         
         if acceleration.y < 0 {
             acceleration.y = CGFloat(15)

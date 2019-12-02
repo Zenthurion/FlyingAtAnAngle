@@ -20,8 +20,6 @@ class GameModel {
     var speedScale : Float = 1
     
     init() {
-
-        UserDefaults.standard.set(1, forKey: "highscore")
         highscore = UserDefaults.standard.integer(forKey: "highscore")
     }
     

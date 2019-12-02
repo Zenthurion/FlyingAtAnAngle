@@ -12,20 +12,18 @@ import UIKit
 class HighscoreTableViewCell : UITableViewCell {
     let scoreLabel : UILabel = {
         let label = UILabel()
-        //label.frame = CGRect(x: 100, y: 0, width: 100, height: 100)
         label.font = UIFont.systemFont(ofSize: 32)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     let nameLabel : UILabel = {
         let label = UILabel()
-        //label.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         label.font = UIFont.systemFont(ofSize: 32)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    
+    // Inspired by https://github.com/purelyswift/uitableview_row_insertions_programmatically/blob/master/mytableview1/ViewController.swift
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

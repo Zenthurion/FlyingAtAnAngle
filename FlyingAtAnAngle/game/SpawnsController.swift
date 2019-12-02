@@ -68,7 +68,5 @@ class SpawnsController {
         }
         newCoin?.position = spawnPosition
         newCoin?.isHidden = false
-        
-        //print("Spawing Coin")
     }
 }

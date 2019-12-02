@@ -14,16 +14,12 @@ class HighscoresController : UITableViewController {
     
     private let serverURL = URL(string: "http://142.93.44.236:3000")!
     var highscores = [Highscore]()
-//    var highscoreLabels = [UILabel]()
-//    @IBOutlet weak var table : UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Highscores"
         
         tableView.register(HighscoreTableViewCell.self, forCellReuseIdentifier: "hs")
-        
-        //table.dataSource = self
         
         getHighscoresFromServer()
     }
