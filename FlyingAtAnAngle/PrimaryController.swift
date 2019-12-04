@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import GameKit
+import CoreData
 
 class PrimaryController : UIViewController {
     
@@ -17,8 +18,27 @@ class PrimaryController : UIViewController {
     
     override func viewDidLoad() {
         print("Loaded Primary Controller")
-        id = UserDefaults.standard.string(forKey: "id")
-        if id == nil { getIdentifier() }
+        
+        if !loadIdentifier() {
+            getIdentifier()
+        }
+    }
+    
+    private func loadIdentifier() -> Bool{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return false }
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<PlayerData>(entityName: "PlayerData")
+        
+        do {
+            let data = try context.fetch(fetchRequest)
+            id = data[0].id
+            print("ID Loaded")
+        } catch {
+            print("Failed to fetch data. \(error)")
+            return false
+        }
+        
+        return true
     }
     
     private func getIdentifier() {
@@ -27,7 +47,23 @@ class PrimaryController : UIViewController {
             guard let data = data else { return }
             
             self.id = String(data: data, encoding: .utf8)
-            UserDefaults.standard.set(self.id, forKey: "id")
+            
+            
+            DispatchQueue.main.async {
+            
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+                let context = appDelegate.persistentContainer.viewContext
+                let player = PlayerData(context: context)
+                player.id = self.id
+                context.insert(player)
+                
+                do {
+                    try context.save()
+                    print("ID saved")
+                } catch {
+                    print("Failed to save context. \(error.localizedDescription)")
+                }
+            }
         }
 
         task.resume()
