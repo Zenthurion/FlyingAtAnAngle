@@ -48,18 +48,19 @@ class GameModel {
                 data[0].highscore = Int32(score)
                 try context.save()
                 print("Highscore Saved")
+                if let id = data[0].id {
+                    pushScoreToServer(score: score, id: id)
+                }
             } catch {
                 print("Failed to save highscore \(error)")
             }
             
-            pushScoreToServer(score: score)
+            
         }
     }
     
-    private func pushScoreToServer(score : Int) {
-        let id = UserDefaults.standard.string(forKey: "id")
-        if id == nil { return }
-        let url = serverURL.appendingPathComponent("/sendScore/\(score)/user/" + id!)
+    private func pushScoreToServer(score : Int, id : String) {
+        let url = serverURL.appendingPathComponent("/sendScore/\(score)/user/" + id)
         let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else { return }
             print(String(data: data, encoding: .utf8)!)
